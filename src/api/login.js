@@ -1,9 +1,9 @@
 import request from "../utils/request";
 
-export function login(query) {
-    return request({
-        url: '/v1/login',
-        method: 'post',
-        params: query
-    })
+export function login(data) {
+  return request({
+    url: '/v1/user/login',
+    method: 'post',
+    data
+  })
 }

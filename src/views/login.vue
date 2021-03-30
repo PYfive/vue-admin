@@ -35,7 +35,7 @@ export default {
     login() {
       login(this.loginForm).then(
           res => {
-            this.$message.success(res.msg)
+            this.$message.success(res.data.msg)
           }
       )
     }
