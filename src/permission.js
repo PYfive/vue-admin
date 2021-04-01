@@ -1,10 +1,15 @@
 import router from './router'
 import store from './store'
-import { Message } from 'element-ui'
 
 router.beforeEach(async(to, from, next) => {
+  console.log(store.getters.token)
   if (store.getters.token) {
-    next()
+    await store.dispatch('user/userInfo')
+    if(to.path === '/welcome'){
+      next()
+    }else{
+      next('/welcome')
+    }
   } else {
     if (to.path === '/login') {
       next()
@@ -17,3 +22,4 @@ router.beforeEach(async(to, from, next) => {
 router.afterEach(() => {
 
 })
+

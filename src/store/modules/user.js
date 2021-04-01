@@ -1,4 +1,5 @@
 import {login} from '../../api/auth'
+import {userInfo} from "../../api/user";
 import {getToken, setToken, removeToken} from '../../utils/auth'
 
 const getDefaultState = () => {
@@ -16,7 +17,10 @@ const mutations = {
   },
   SET_TOKEN: (state, token) => {
     state.token = token
-  }
+  },
+  SET_USER_INFO: (state, userInfo) => {
+    state.userInfo = userInfo
+  },
 }
 
 const actions = {
@@ -28,7 +32,6 @@ const actions = {
         .then(response => {
           const {data} = response
           setToken(data.token)
-
           commit('SET_TOKEN', data.token)
           resolve()
         }).catch((error) => {
@@ -36,6 +39,22 @@ const actions = {
       })
     })
   },
+
+  // userInfo
+  userInfo({commit}) {
+    return new Promise((resolve, reject) => {
+      userInfo()
+        .then(response => {
+          const {data} = response
+          localStorage.setItem('info',JSON.stringify(data))
+          commit('SET_USER_INFO', data)
+          resolve()
+        }).catch((error) => {
+        reject(error)
+      })
+    })
+  },
+
   // remove token
   resetToken({commit}) {
     return new Promise(resolve => {

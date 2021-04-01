@@ -9,7 +9,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     if (store.getters.token) {
-      config.headers['X-Token'] = store.getters.token
+      config.headers['Authorization'] = `Bearer ${store.getters.token}`
     }
     return config
   },
@@ -27,7 +27,7 @@ service.interceptors.response.use(
         duration: 5 * 1000
       })
 
-      if (res.code === '1005') {
+      if (['1005','1006','1007'].includes(res.code)) {
         MessageBox.confirm('登录失效，你确定要返回登录页吗', '返回登录页', {
           confirmButtonText: '确认',
           cancelButtonText: '取消',
