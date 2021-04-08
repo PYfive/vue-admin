@@ -28,6 +28,7 @@ service.interceptors.response.use(
       })
 
       if (['1005','1006','1007'].includes(res.code)) {
+        alert(222)
         MessageBox.confirm('登录失效，你确定要返回登录页吗', '返回登录页', {
           confirmButtonText: '确认',
           cancelButtonText: '取消',
